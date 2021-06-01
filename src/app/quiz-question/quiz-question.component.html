@@ -1,0 +1,50 @@
+<div *ngIf="questionId < questions.length" class="question-wrapper">
+  <p>{{questions[questionId].question}}</p>
+  <div [ngSwitch]="questions[questionId].type">
+    <div *ngSwitchCase="'corresponding'" [formGroup]="answersMatch">
+      <div *ngFor="let option of questions[questionId].options; let i = index"
+           class="match">
+        <div class="match-option">{{option}}</div>
+        <div class="match-input">
+          <input matInput
+                 formControlName="{{i+1}}">
+        </div>
+        <div class="match-index">{{i + 1}}</div>
+        <div class="match-answer">{{questions[questionId].answers[i]}}</div>
+      </div>
+    </div>
+    <div *ngSwitchDefault>
+      <div *ngFor="let option of questions[questionId].options; let i = index">
+        <mat-checkbox (change)="answer($event, option, i)">{{option}}</mat-checkbox>
+      </div>
+    </div>
+    <div class="question-error">
+      <div *ngIf="isError" class="question-error__content">
+        {{questions[questionId].error_phrase}}
+      </div>
+    </div>
+  </div>
+  <div class="question-actions">
+    <button mat-stroked-button
+            color="primary"
+            (click)="submit()"
+            [disabled]="isAnswered">
+      Відповісти
+    </button>
+    <button mat-stroked-button
+            color="primary"
+            (click)="next()"
+            [disabled]="!isAnswered">
+      Далі
+    </button>
+  </div>
+</div>
+<div *ngIf="questionId > questions.length - 1">
+  <div>Результат</div>
+  <div>ви дали {{answersCounter}}/{{questions.length}} правильних відповідей</div>
+  <button mat-stroked-button
+          color="primary"
+          (click)="tryAgain()">
+    Пройти знову
+  </button>
+</div>

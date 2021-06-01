@@ -1,0 +1,59 @@
+@import "../../styles/colors";
+
+:host {
+  height: 96%;
+  width: 98%;
+  margin: 2% auto;
+}
+
+.question-wrapper {
+  height: 96%;
+  margin: 2% auto;
+  display: grid;
+}
+
+.question-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin: 0 20px;
+    width: 120px;
+  }
+}
+
+.match {
+  display: grid;
+  grid-template-columns: 35% 10% 10% 45%;
+  margin: 5px auto;
+}
+
+.match-option {
+  text-align: right;
+  padding: 0 10px;
+}
+
+.match-input {
+  & input {
+    width: 70%;
+    text-align: center;
+  }
+}
+
+.match-index {
+  text-align: right;
+  padding: 0 10px;
+}
+
+.question-error {
+  height: 20%;
+
+  &__content {
+    margin: 12px;
+    border: 1px solid $color-error;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(203, 25, 7, .1);
+  }
+}
