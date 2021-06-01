@@ -1,0 +1,78 @@
+@import "../styles/colors";
+
+.app-wrapper {
+  height: 100%;
+}
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+}
+
+.mat-list-base .mat-list-item {
+  color: $color-contrast;
+}
+
+mat-list-item {
+  &:hover {
+    cursor: pointer;
+    background-color: $color-accent;
+  }
+}
+
+mat-toolbar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.puet-logo {
+  width: 45px;
+  height: 45px;
+  background: url("../assets/logo_small.png") no-repeat center center;
+  background-size: contain;
+}
+
+.app-menu-button {
+  display: block;
+}
+
+.app-menu-desktop {
+  display: none;
+  width: 20%;
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+main {
+  display: flex;
+  height: calc(100% - 64px);
+}
+
+section {
+  width: 92%;
+  height: 92%;
+  margin: auto;
+}
+
+@media (min-device-width: 400px) {
+  .app-menu-button {
+    display: none;
+  }
+
+  .app-menu-desktop {
+    display: block;
+  }
+
+  section {
+    width: 80%;
+  }
+}
