@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Questions} from './quiz-questions';
 
 @Component({
   selector: 'app-quiz-question',
@@ -9,31 +10,7 @@ import {Router} from '@angular/router';
 })
 export class QuizQuestionComponent implements OnInit {
 
-  questions = [{
-    id: 3,
-    question: 'Формальна породжувальна граматика G (далі – граматика G) – це формальна система, задана четвіркою об&#39;єктів G = (V, T, S, P). Встановіть відповідність.',
-    type: 'corresponding',
-    options: ['V', 'T', 'S', 'P'],
-    answers: ['початковий символ ( SєV)', 'підмножина V, елементи якої називають термінальними (основними) символами;', 'скінченна множина продукцій (або правил перетворення) вигляду\n' +
-    'ξ→η, де ξ та η – ланцюжки над алфавітом V;', 'скінченна непорожня множина, яку називають алфавітом (або\n' +
-    'словником).'],
-    matches: { 1: '4', 2: '2', 3: '1', 4: '3' },
-    error_phrase: 'Помилка! Правильна відповідь: V – скінченна непорожня множина, яку називають алфавітом (або словником); T – її підмножина, елементи якої називають термінальними (основними) символами; S – початковий символ ( SV ); P – скінченна множина продукцій (або правил перетворення) вигляду ξ→η, де ξ та η – ланцюжки над алфавітом V.'
-  }, {
-    id: 4,
-    question: 'Формальні породжувальні граматики часто називають ________. \n Вставте продовження речення.',
-    type: 'single',
-    options: ['граматиками з фразовою структурою;', 'граматиками безпосередніх складових;', 'обидва варіанти правильні;'],
-    answers: [false, false, true],
-    error_phrase: 'Помилка! Правильна відповідь – третій варіант.'
-  }, {
-    id: 9,
-    question: 'Користувачу відображається умова: «Довжину ланцюжка α позначають ___________.',
-    type: 'multiply',
-    options: ['l(α);', 'α;', '| α |;', '( α ).'],
-    answers: [true, false, true, false],
-    error_phrase: 'Помилка! Правильна відповідь – перший і третій варіанти.'
-  }];
+  questions = Questions;
   questionId = 0;
   answersCounter = 0;
   answersMatch;
@@ -77,7 +54,21 @@ export class QuizQuestionComponent implements OnInit {
     this.router.navigateByUrl('/quiz');
   }
 
+  getAssessment(): string {
+    const score = this.answersCounter / this.questions.length;
+    if (score >= 0.9) { return 'Відмінно'; }
+    if (score >= 0.8) { return 'Дуже добре'; }
+    if (score >= 0.7) { return 'Добре'; }
+    if (score >= 0.5) { return 'Задовільно'; }
+    return 'Незадовільно';
+  }
+
+  trackByFn(index, item): number {
+    return index; // or item.id
+  }
+
   private cleanAnswers(): void {
+    this.questionAnswers = [];
     if (this.questionId > this.questions.length - 1) { return; }
     this.questionAnswers = this.questions[this.questionId].options.map(_ => false);
   }

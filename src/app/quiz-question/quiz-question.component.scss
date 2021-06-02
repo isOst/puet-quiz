@@ -8,8 +8,12 @@
 
 .question-wrapper {
   height: 96%;
+  width: 100%;
   margin: 2% auto;
-  display: grid;
+
+  & p {
+    width: 100%
+  }
 }
 
 .question-actions {
@@ -56,4 +60,17 @@
     border-radius: 10px;
     background-color: rgba(203, 25, 7, .1);
   }
+}
+
+.quiz-result {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10% auto;
+}
+
+::ng-deep .mat-checkbox-layout {
+  white-space: normal !important;
 }

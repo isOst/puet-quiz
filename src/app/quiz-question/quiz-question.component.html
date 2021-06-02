@@ -1,8 +1,8 @@
 <div *ngIf="questionId < questions.length" class="question-wrapper">
-  <p>{{questions[questionId].question}}</p>
+  <p>{{questions[questionId].question.replace('/&lt;/g', '<')}}</p>
   <div [ngSwitch]="questions[questionId].type">
     <div *ngSwitchCase="'corresponding'" [formGroup]="answersMatch">
-      <div *ngFor="let option of questions[questionId].options; let i = index"
+      <div *ngFor="let option of questions[questionId].options; let i = index; trackBy: trackByFn"
            class="match">
         <div class="match-option">{{option}}</div>
         <div class="match-input">
@@ -15,7 +15,9 @@
     </div>
     <div *ngSwitchDefault>
       <div *ngFor="let option of questions[questionId].options; let i = index">
-        <mat-checkbox (change)="answer($event, option, i)">{{option}}</mat-checkbox>
+        <mat-checkbox (change)="answer($event, option, i)">
+          <span>{{option}}</span>
+        </mat-checkbox>
       </div>
     </div>
     <div class="question-error">
@@ -24,6 +26,7 @@
       </div>
     </div>
   </div>
+  <br/>
   <div class="question-actions">
     <button mat-stroked-button
             color="primary"
@@ -39,9 +42,15 @@
     </button>
   </div>
 </div>
-<div *ngIf="questionId > questions.length - 1">
-  <div>Результат</div>
-  <div>ви дали {{answersCounter}}/{{questions.length}} правильних відповідей</div>
+<div *ngIf="questionId > questions.length - 1" class="quiz-result">
+  <h2>Результат</h2>
+  <br/>
+  <div>
+    <span>Вітаємо! Ви пройшли всі тести з теми «Формальні граматики», Ваша оцінка: </span>
+    <span>{{getAssessment()}}</span>
+  </div>
+  <div>Ви дали {{answersCounter}}/{{questions.length}} правильних відповідей</div>
+  <br/>
   <button mat-stroked-button
           color="primary"
           (click)="tryAgain()">
