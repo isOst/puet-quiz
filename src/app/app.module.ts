@@ -14,6 +14,7 @@ import { QuizQuestionComponent } from './quiz-question/quiz-question.component';
 import {RouterModule, Routes} from '@angular/router';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
 
 const routes: Routes = [{
   path: 'quiz',
@@ -52,6 +53,7 @@ const routes: Routes = [{
     MatSidenavModule,
     MatListModule,
     MatCheckboxModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -1,8 +1,20 @@
 <mat-toolbar>
   <div class="puet-logo"></div>
-  <button mat-icon-button aria-label="Menu button for mobile sidenav">
-    <mat-icon>language</mat-icon>
-  </button>
+  <div class="language">
+    <div>{{(language$ | async)}}</div>
+    <button mat-icon-button
+            aria-label="Menu button for mobile sidenav"
+            [matMenuTriggerFor]="menu">
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item
+              *ngFor="let lang of languages; let i = index"
+              (click)="setLanguage(i)">
+        <span>{{lang}}</span>
+      </button>
+    </mat-menu>
+  </div>
 </mat-toolbar>
 <section>
   <router-outlet></router-outlet>

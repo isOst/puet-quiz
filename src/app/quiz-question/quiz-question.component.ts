@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Questions} from './quiz-questions';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-quiz-question',
@@ -20,6 +21,7 @@ export class QuizQuestionComponent implements OnInit {
   isResult = false;
 
   constructor(
+    public appService: AppService,
     private formBuilder: FormBuilder,
     private router: Router
   ) { }

@@ -42,6 +42,12 @@ mat-toolbar {
   background-size: contain;
 }
 
+.language {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .app-menu-button {
   display: block;
 }

@@ -1,28 +1,28 @@
 <div *ngIf="questionId < questions.length" class="question-wrapper">
-  <p>{{questions[questionId].question.replace('/&lt;/g', '<')}}</p>
+  <p>{{appService.translate(questions[questionId].question)}}</p>
   <div [ngSwitch]="questions[questionId].type">
     <div *ngSwitchCase="'corresponding'" [formGroup]="answersMatch">
       <div *ngFor="let option of questions[questionId].options; let i = index; trackBy: trackByFn"
            class="match">
-        <div class="match-option">{{option}}</div>
+        <div class="match-option">{{appService.translate(option)}}</div>
         <div class="match-input">
           <input matInput
                  formControlName="{{i+1}}">
         </div>
         <div class="match-index">{{i + 1}}</div>
-        <div class="match-answer">{{questions[questionId].answers[i]}}</div>
+        <div class="match-answer">{{appService.translate(questions[questionId].answers[i])}}</div>
       </div>
     </div>
     <div *ngSwitchDefault>
       <div *ngFor="let option of questions[questionId].options; let i = index">
         <mat-checkbox (change)="answer($event, option, i)">
-          <span>{{option}}</span>
+          <span>{{appService.translate(option)}}</span>
         </mat-checkbox>
       </div>
     </div>
     <div class="question-error">
       <div *ngIf="isError" class="question-error__content">
-        {{questions[questionId].error_phrase}}
+        {{appService.translate(questions[questionId].error_phrase)}}
       </div>
     </div>
   </div>
@@ -32,28 +32,28 @@
             color="primary"
             (click)="submit()"
             [disabled]="isAnswered">
-      Відповісти
+      {{appService.translate('answer')}}
     </button>
     <button mat-stroked-button
             color="primary"
             (click)="next()"
             [disabled]="!isAnswered">
-      Далі
+      {{appService.translate('next')}}
     </button>
   </div>
 </div>
 <div *ngIf="questionId > questions.length - 1" class="quiz-result">
-  <h2>Результат</h2>
+  <h2>{{appService.translate('result')}}</h2>
   <br/>
   <div>
-    <span>Вітаємо! Ви пройшли всі тести з теми «Формальні граматики», Ваша оцінка: </span>
+    <span>{{appService.translate('result_message')}}</span>
     <span>{{getAssessment()}}</span>
   </div>
-  <div>Ви дали {{answersCounter}}/{{questions.length}} правильних відповідей</div>
+  <div>{{appService.translate('result_right_answers')}}: {{answersCounter}}/{{questions.length}}</div>
   <br/>
   <button mat-stroked-button
           color="primary"
           (click)="tryAgain()">
-    Пройти знову
+    {{appService.translate('result_try_again')}}
   </button>
 </div>
